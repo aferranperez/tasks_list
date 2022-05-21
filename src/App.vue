@@ -1,28 +1,36 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-main>
+      <v-container>
+        <FormComponent></FormComponent>
+        <ButtomGroup></ButtomGroup>
+        <v-divider></v-divider>
+        <TasksList></TasksList>
+      </v-container>
+      <p>{{contador}}</p>
+    </v-main>
+    
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld';
+import FormComponent from './components/FormComponent.vue'
+import ButtomGroup from './components/ButtomGroup.vue'
+import TasksList from './components/TasksList.vue'
+import {mapState} from 'vuex'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    FormComponent,
+    ButtomGroup,
+    TasksList
+  },
+  computed: {
+    ...mapState(['contador'])
+  }
+
+};
+</script>
