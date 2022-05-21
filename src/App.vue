@@ -7,7 +7,6 @@
         <v-divider></v-divider>
         <TasksList></TasksList>
       </v-container>
-      <p>{{contador}}</p>
     </v-main>
     
   </v-app>
@@ -18,7 +17,7 @@
 import FormComponent from './components/FormComponent.vue'
 import ButtomGroup from './components/ButtomGroup.vue'
 import TasksList from './components/TasksList.vue'
-import {mapState} from 'vuex'
+import { mapState} from 'vuex'
 
 export default {
   name: 'App',
@@ -30,7 +29,7 @@ export default {
   },
   computed: {
     ...mapState(['contador'])
-  }
-
+  },
+  
 };
 </script>

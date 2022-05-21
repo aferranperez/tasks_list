@@ -16,8 +16,10 @@
     "@vue/cli-plugin-babel": "~4.5.15",
     "@vue/cli-plugin-vuex": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
+    "axios": "^0.18.0",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
+    "vue-cli-plugin-axios": "~0.0.4",
     "vue-cli-plugin-vuetify": "~2.4.8",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"

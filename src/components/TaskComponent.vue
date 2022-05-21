@@ -69,13 +69,15 @@
             </v-col>
         </v-row>
 
-        
+        {{task}}
 
     </v-container>
 
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     data() {
         return {
@@ -89,8 +91,14 @@ export default {
             ]
         }
     },
+    props:['task'],
+    computed:{
+        ...mapState(['reg_exp_email','reg_exp_url','reg_exp_hashtag','reg_exp_at'])
+    },
     methods:{
-
+        classifier(){
+            
+        }
     }
 }
 </script>
