@@ -4,26 +4,31 @@
         class="d-flex flex-wrap"
         flat
         >
-        
-        <v-icon
-            slot="prepend"
-            color="blue"
-            class="pa-2"
-            >
-            mdi-plus-box
-        </v-icon>
-        
+        <v-btn
+            text
+            x-large
+            @click="prepareNewTask"
+        >
+            <v-icon
+                color="blue"
+                class="pa-2"
+                >
+                mdi-plus-box
+            </v-icon>
+        </v-btn>   
         
         <v-text-field
             class="pa-2"
             placeholder="Type a new task"
-            v-model="task_description"
+            v-model="changeTaskDescription"
+            v-if="add_task != false"
         >
         </v-text-field>
 
         <v-avatar
             class="pa-2"
             size="40px"
+            v-if="add_task != false"
             >
             <img
                 src="https://cdn.vuetifyjs.com/images/john.jpg"
@@ -42,17 +47,27 @@ import { mapState } from 'vuex'
 
 export default {
     data: () => ({
-        task_description: ''
+        
     }),
     
-    watch: {
-        task_description(newTask, oldTask) {
-            this.$store.commit('changeTaskDescription', newTask)
+    computed: {
+        ...mapState(['new_task_description','add_task']),
+        changeTaskDescription: {
+            get(){
+                return this.new_task_description
+            },
+            set(val){
+                this.$store.commit('changeTaskDescription', val)
+            }
         }
     },
-    computed: {
-        ...mapState(['new_task_description'])
+
+    methods: {
+        prepareNewTask(){
+            this.$store.commit('change_add_task')
+        }
     }
+    
     
     
 

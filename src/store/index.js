@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     contador: 5,
+    add_task: false,
     isLoading: false,
     isSending: false,
     isTyping: false,
@@ -30,7 +31,7 @@ export default new Vuex.Store({
   mutations: {
     addTask(state, data){
       for (let id of Object.keys(data)) {
-        state.tasks.push({
+        state.tasks.unshift({
             id,
             ...data[id]
         })
@@ -39,7 +40,11 @@ export default new Vuex.Store({
 
     changeTaskDescription(state,description){
       state.new_task_description = description
+    },
+    change_add_task(state){
+      state.add_task = true
     }
+
   },
 
   actions: {
@@ -58,7 +63,7 @@ export default new Vuex.Store({
       await tasksApi.get(`/tasks/${id}.json`)
         .then(response => {
           // console.log(response.data)
-          state.tasks.push({
+          state.tasks.unshift({
             id,
             ...response.data
           })

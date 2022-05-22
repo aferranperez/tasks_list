@@ -1,6 +1,8 @@
 <template>
     
-    <v-container>
+    <v-container
+        v-if="add_task != false"
+    >
         <v-row
             class="mb-12"
         >
@@ -9,8 +11,7 @@
                 xs="2"
             >
                 <v-btn
-                    elevation="2"
-                    text
+                    
                     >
                     <v-icon
                         color="black"
@@ -80,10 +81,10 @@ export default {
         }
     },
     computed: {
-        ...mapState(['new_task_description'])
+        ...mapState(['new_task_description', 'add_task'])
     },
     methods:{
-        ...mapActions(['saveTask'])
+        ...mapActions(['saveTask']),
     },
     
 
