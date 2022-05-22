@@ -21,64 +21,15 @@
                         v-for="(item,index) in order"
                         :key="index"
                         class="ma-2"
+                        :color="change_color(item[1])"
+                        
                     >
-                        {{item[1]}}                    
-
+                        <v-icon v-if="item[1] == 'email' ">mdi-email</v-icon>
+                        <v-icon v-else-if="item[1] == 'hashtag' ">mdi-pound</v-icon>
+                        <v-icon v-else-if="item[1] == 'url' "> mdi-link-variant</v-icon>
+                        <v-icon v-else-if="item[1] == 'at' ">mdi-at</v-icon>
+                        {{editBubbleText( item ) }}
                     </v-chip>
-
-
-
-
-                    <!-- <v-chip
-                        class="ma-2"
-                        color="primary"
-                        text-color="white"
-                    >
-                        <v-icon>
-                            mdi-at
-                        </v-icon>
-                        dev-team
-                    </v-chip>
-
-                    <v-chip
-                        outlined
-                        class="ma-2"
-                    >
-                        algo escrito esta en la casa
-                    </v-chip>
-                    
-                    <v-chip
-                        class="ma-2"
-                        color="purple"
-                        text-color="white"
-                    >
-                        <v-icon>
-                            mdi-pound
-                        </v-icon>
-                        alldone
-                    </v-chip>
-
-                    <v-chip
-                        class="ma-2"
-                        color="orange"
-                        text-color="white"
-                    >
-                        <v-icon>
-                            mdi-email
-                        </v-icon>
-                        Mail
-                    </v-chip>
-
-                    <v-chip
-                        class="ma-2"
-                        color="blue"
-                        text-color="white"
-                    >
-                        <v-icon>
-                            mdi-link-variant
-                        </v-icon>
-                        Link
-                    </v-chip> -->
 
                 </div>
                 
@@ -98,9 +49,7 @@ export default {
     data() {
         return {
             checkbox: false,
-            // order:[
-            //     ['text','algo escrito'],
-            // ]
+            // order: [contenido , type]
             order:[],
             color:''
         }
@@ -114,13 +63,23 @@ export default {
             return (this.reg_exp_email.test(description))?"email":
                                     (this.reg_exp_hashtag.test(description))?"hashtag":
                                         (this.reg_exp_url.test(description))?"url":
-                                            (this.reg_exp_at.test(description))?"at":"text"
+                                            (this.reg_exp_at.test(description))?"at":
+                                                "text"
         },
         change_color(type){
-            (type == "text")?'white':
-                (type == "email")?'orange':
-                    (type == "hashtag")?'purple':
-                        (type == "url")?'blue':'green'
+            return  (type == "text")?'white':
+                        (type == "email")?'orange':
+                            (type == "hashtag")?'purple':
+                                (type == "url")?'blue':
+                                    'green'
+
+        },
+        editBubbleText(item){
+            return  (item[1] == "at")?item[0].replace("@",""):
+                        (item[1] == "hashtag")?item[0].replace("#",""):
+                            (item[1] == "url")?'Link':
+                                (item[1] == "email")?'Mail':
+                                    item[0]
         }
     },
 
@@ -131,8 +90,6 @@ export default {
             this.order.push([element,this.classifier(element)])
             console.log(this.order)
         });
-
-        
     },
 }
 </script>
