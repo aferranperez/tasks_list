@@ -8,7 +8,8 @@
         >
             <v-col
                 md="2"
-                xs="2"
+                xs="1"
+                sm="1"
             >
                 <v-btn
                     :disabled="(isTyping)?false:true"
@@ -25,7 +26,8 @@
     
             <v-col
                 md="8"
-                xs="6"
+                xs="10"
+                sm="8"
             >
                 <v-btn
                     v-for="(item,index) in icons_buttons"
@@ -47,7 +49,8 @@
 
             <v-col
                 md="2"
-                xs="4"     
+                xs="1"   
+                sm="3"  
             >
                 <v-btn
                     @click="cancelTask"
@@ -58,6 +61,7 @@
                 <v-btn 
                     color="primary"
                     @click="check_new_task_description"
+                    :loading="isLoading"
                 >
                     <span v-if="$mq == 'lg'">{{change_text_buttom}}</span>
                     <v-icon
@@ -98,7 +102,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['new_task_description', 'add_task','isTyping']),
+        ...mapState(['new_task_description', 'add_task','isTyping','isLoading']),
         change_text_buttom:{
             get(){
                 return (this.isTyping)?'Add':'Ok'

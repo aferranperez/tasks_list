@@ -56,6 +56,7 @@ export default new Vuex.Store({
       state.add_task = false
       state.new_task_description = ''
       state.task_description_color =[]
+      state.isLoading = false
     },
     update_tasks_with_color(state,classification){
       state.task_description_color = classification
@@ -63,8 +64,10 @@ export default new Vuex.Store({
     save_id_taskToEdit(state,id){
       state.task_selected_edit = id
       state.isEditing = true
+    },
+    change_state_loading(state){
+      state.isLoading = !(state.isLoading)
     }
-    
   },
 
   actions: {
@@ -93,8 +96,8 @@ export default new Vuex.Store({
         })
     },
 
-    async saveTask({dispatch, state,context}){
-      
+    async saveTask({dispatch, state,commit}){
+      commit('change_state_loading')
       const dataToSave = {description : `${state.new_task_description}`}
       await tasksApi.post(`tasks.json`, dataToSave)
               .then(response => {
@@ -105,11 +108,15 @@ export default new Vuex.Store({
               .catch(error => {
                   console.error("There was an error with load of the task!!!" ,error)
               })
+      
+      commit('change_state_loading')
     },
     
     async check_new_task_description({state,commit,dispatch}){
+
       (state.new_task_description === '')?(
         commit('cancel_add_task')
+
       ):(
         dispatch('saveTask')
       )
