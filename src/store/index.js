@@ -13,7 +13,7 @@ export default new Vuex.Store({
     isLoading: false,
     // isSending: false,
     haveError:false,
-    text_error:'',
+    text_error:'cacac',
     isTyping: false,
     isEditing:false,
     new_task_description: '',
@@ -69,6 +69,10 @@ export default new Vuex.Store({
     },
     change_state_loading(state){
       state.isLoading = !(state.isLoading)
+    },
+    set_error_message(state,error){
+      state.text_error = error
+      state.haveError = true
     }
   },
 
@@ -79,8 +83,8 @@ export default new Vuex.Store({
           context.commit('addTask', data)
           
       }catch(error){
-          console.log( error)
-          alert("Can not connect to RestApi")
+          // console.log( error)
+          context.commit('set_error_message','Can\'t connect with RestApi. Recharge the page...')
       }
     },
 
