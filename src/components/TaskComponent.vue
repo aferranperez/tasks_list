@@ -10,7 +10,6 @@
                     v-model="checkbox"
                 ></v-checkbox>
             </v-col>
-
             <v-col
                 md="11"
                 class="d-flex"
@@ -35,7 +34,7 @@
                 
             </v-col>
         </v-row>
-        <!-- {{task}} -->
+        {{task}}
     </v-container>
 
 </template>
@@ -54,7 +53,7 @@ export default {
     },
     props:['task'],
     computed:{
-        ...mapState(['reg_exp_email','reg_exp_url','reg_exp_hashtag','reg_exp_at']),
+        ...mapState(['reg_exp_email','reg_exp_url','reg_exp_hashtag','reg_exp_at','task_selected_edit']),
     },
     methods:{
         classifier(description){
@@ -88,5 +87,10 @@ export default {
             this.order.push([element,this.classifier(element)])
         });
     },
+    watch:{
+        checkbox(newState, oldState){
+            if(newState) this.$store.commit('save_id_taskToEdit',this.task.id)
+        }
+    }
 }
 </script>

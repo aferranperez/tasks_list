@@ -13,9 +13,11 @@ export default new Vuex.Store({
     isLoading: false,
     isSending: false,
     isTyping: false,
+    isEditing:false,
     new_task_description: '',
     tasks: [],
     task_description_color:[],
+    task_selected_edit: '',
 
     // Expresiones regulares
     reg_exp_email: /\w+@\w+\.+[a-z]/,
@@ -56,6 +58,10 @@ export default new Vuex.Store({
     },
     update_tasks_with_color(state,classification){
       state.task_description_color = classification
+    },
+    save_id_taskToEdit(state,id){
+      state.task_selected_edit = id
+      state.isEditing = true
     }
     
   },
