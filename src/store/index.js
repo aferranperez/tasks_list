@@ -86,8 +86,8 @@ export default new Vuex.Store({
         })
     },
 
-    async saveTask({dispatch, state}){
-    
+    async saveTask({dispatch, state,context}){
+      
       const dataToSave = {description : `${state.new_task_description}`}
       await tasksApi.post(`tasks.json`, dataToSave)
               .then(response => {
@@ -99,6 +99,14 @@ export default new Vuex.Store({
                   console.error("There was an error with load of the task!!!" ,error)
               })
     },
+    
+    async check_new_task_description({state,commit,dispatch}){
+      (state.new_task_description === '')?(
+        commit('cancel_add_task')
+      ):(
+        dispatch('saveTask')
+      )
+    }
 
 
   },

@@ -11,8 +11,8 @@
                 xs="2"
             >
                 <v-btn
-                    
-                    >
+                    :disabled="(isTyping)?false:true"
+                >
                     <v-icon
                         color="black"
                         >
@@ -32,7 +32,7 @@
                     :key="item"
                     elevation="2"
                     text
-                    disabled
+                    :disabled="(isTyping)?false:true"
                     >
                     <v-icon
                         color="black"
@@ -41,6 +41,7 @@
                     </v-icon>
                     {{item[1]}}
                 </v-btn>
+                
             </v-col>
             
 
@@ -55,7 +56,7 @@
                 </v-btn>
                 <v-btn 
                     color="primary"
-                    @click="saveTask"
+                    @click="check_new_task_description"
                 >
                     {{change_text_buttom}}
                 </v-btn>
@@ -63,7 +64,6 @@
             
         </v-row>
         
-
     </v-container>
     
 </template>
@@ -93,7 +93,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['saveTask']),
+        ...mapActions(['check_new_task_description']),
         
         cancelTask(){
             this.$store.commit('cancel_add_task')
