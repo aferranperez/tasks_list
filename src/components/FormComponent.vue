@@ -27,7 +27,7 @@
                 md="10"
             >
                 <v-input 
-                    style="top: 40px;position: absolute; margin-top: 8px;z-index: 2;"
+                    style="top: 40px;position: absolute; margin-top: 8px;z-index: 2; padding:0px 8px 0px 8px;"
                     
                     v-if="add_task != false"
                 >
@@ -35,7 +35,6 @@
                         v-for="item in task_description_color"
                         :key="item"
                         :style="setPositionLeft"
-                        style="padding-left:6px"
                         v-html="item"
                     >
                     </span>
@@ -70,7 +69,7 @@
                 </v-avatar>
             </v-col>
         </v-row>
-        {{position_form}}
+        {{position_form_top}}
     </v-container>
 
 </template>
@@ -81,7 +80,10 @@ import { mapActions, mapState } from 'vuex'
 export default {
     data: () => ({
         windowWidth: window.innerWidth,
-        position_form:''
+        position_form_left:'',
+        position_form_right:'',
+        position_form_top:'',
+        position_form_bottom:'',
     }),
     
     computed: {
@@ -102,7 +104,7 @@ export default {
         },
         setPositionLeft:{
             get(){
-                return `left:${this.position_form}`
+                return `left:${this.position_form};right:${this.position_form_right};top:${this.position_form_top};bottom:${this.position_form_bottom}`
             }
         }
     },
@@ -125,11 +127,11 @@ export default {
             const classification = []
 
             sub_strings.forEach(element => {
-                (this.classifier(element) == "email") ? classification.push(`<span style="color:#ff9800">${element}</span>`) :
-                    (this.classifier(element) == "hashtag") ? classification.push(`<span style="color:#9c27b0">${element}</span>`) :
-                        (this.classifier(element) == "url") ? classification.push(`<span style="color:#2196f3">${element}</span>`) :
-                            (this.classifier(element) == "at") ? classification.push(`<span style="color:#4caf50">${element}</span>`) :
-                                classification.push(`<span>${element}</span>`) 
+                (this.classifier(element) == "email") ? classification.push(`<span style="color:#ff9800">${element}&nbsp</span>`) :
+                    (this.classifier(element) == "hashtag") ? classification.push(`<span style="color:#9c27b0">${element}&nbsp</span>`) :
+                        (this.classifier(element) == "url") ? classification.push(`<span style="color:#2196f3">${element}&nbsp</span>`) :
+                            (this.classifier(element) == "at") ? classification.push(`<span style="color:#4caf50">${element}&nbsp</span>`) :
+                                classification.push(`<span>${element}&nbsp</span>`) 
             });
 
             this.$store.commit('update_tasks_with_color',classification)
@@ -139,7 +141,10 @@ export default {
     },
     watch:{
         windowWidth(newState, oldState){
-            this.position_form = document.getElementById('formulario').getBoundingClientRect().left
+            this.position_form_left = document.getElementById('formulario').getBoundingClientRect().left
+            this.position_form_right = document.getElementById('formulario').getBoundingClientRect().right
+            this.position_form_top = document.getElementById('formulario').getBoundingClientRect().top
+            this.position_form_bottom = document.getElementById('formulario').getBoundingClientRect().bottom
         }
     },
 

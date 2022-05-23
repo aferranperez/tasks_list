@@ -55,6 +55,7 @@ export default new Vuex.Store({
     cancel_add_task(state){
       state.add_task = false
       state.new_task_description = ''
+      state.task_description_color =[]
     },
     update_tasks_with_color(state,classification){
       state.task_description_color = classification
