@@ -28,8 +28,8 @@
                 xs="6"
             >
                 <v-btn
-                    v-for="(item) in icons_buttons"
-                    :key="item"
+                    v-for="(item,index) in icons_buttons"
+                    :key="index"
                     elevation="2"
                     text
                     :disabled="(isTyping)?false:true"

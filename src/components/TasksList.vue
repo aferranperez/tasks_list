@@ -2,8 +2,8 @@
     <div>
         
         <TaskComponent
-            v-for="item in tasks"
-            :key="item"
+            v-for="(item,index) in tasks"
+            :key="index"
             :task="item"
         ></TaskComponent>
 

@@ -27,24 +27,29 @@
                 md="10"
             >
                 <v-input 
-                    style="top: 40px;position: absolute; margin-top: 8px;"
+                    style="top: 40px;position: absolute; margin-top: 8px;z-index: 2;"
+                    
                     v-if="add_task != false"
                 >
                     <span
                         v-for="item in task_description_color"
                         :key="item"
+                        :style="setPositionLeft"
+                        style="padding-left:6px"
                         v-html="item"
                     >
                     </span>
-                    <span>|</span>
+                    <!-- <span>|</span> -->
                     
                 </v-input>
                 <v-text-field
+                    color="green"
                     class="pa-2"
                     placeholder="Type a new task"
                     v-model="changeTaskDescription"
                     v-if="add_task != false"
-                    style="opacity:0;"
+                    style="opacity:1;z-index: 1;"
+                    id="formulario"
                 >
                 </v-text-field>
             </v-col>
@@ -65,7 +70,7 @@
                 </v-avatar>
             </v-col>
         </v-row>
-    
+        {{position_form}}
     </v-container>
 
 </template>
@@ -75,7 +80,8 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
     data: () => ({
-        // task_with_color: []
+        windowWidth: window.innerWidth,
+        position_form:''
     }),
     
     computed: {
@@ -92,6 +98,11 @@ export default {
         change_opacity_to_avatar:{
             get(){
                 return (this.isTyping)?"opacity:1":'opacity:0.5'
+            }
+        },
+        setPositionLeft:{
+            get(){
+                return `left:${this.position_form}`
             }
         }
     },
@@ -114,16 +125,27 @@ export default {
             const classification = []
 
             sub_strings.forEach(element => {
-                (this.classifier(element) == "email") ? classification.push(`<span style="color:#ff9800">${element}&nbsp;</span>`) :
-                    (this.classifier(element) == "hashtag") ? classification.push(`<span style="color:#9c27b0">${element}&nbsp;</span>`) :
-                        (this.classifier(element) == "url") ? classification.push(`<span style="color:#2196f3">${element}&nbsp;</span>`) :
-                            (this.classifier(element) == "at") ? classification.push(`<span style="color:#4caf50">${element}&nbsp;</span>`) :
-                                classification.push(`<span>${element}&nbsp;</span>`) 
+                (this.classifier(element) == "email") ? classification.push(`<span style="color:#ff9800">${element}</span>`) :
+                    (this.classifier(element) == "hashtag") ? classification.push(`<span style="color:#9c27b0">${element}</span>`) :
+                        (this.classifier(element) == "url") ? classification.push(`<span style="color:#2196f3">${element}</span>`) :
+                            (this.classifier(element) == "at") ? classification.push(`<span style="color:#4caf50">${element}</span>`) :
+                                classification.push(`<span>${element}</span>`) 
             });
 
             this.$store.commit('update_tasks_with_color',classification)
             // this.task_with_color = classification
             // console.log(this.task_with_color)
+        },
+    },
+    watch:{
+        windowWidth(newState, oldState){
+            this.position_form = document.getElementById('formulario').getBoundingClientRect().left
+        }
+    },
+
+    mounted() {
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
         }
     },
 }
