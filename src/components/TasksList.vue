@@ -6,7 +6,18 @@
             :key="index"
             :task="item"
         ></TaskComponent>
-
+    
+        <v-alert
+            border="left"
+            dismissible
+            prominent
+            shaped
+            type="error"
+            style="padding-top:30px"
+            v-if="haveError"
+        >
+        {{text_error}}
+        </v-alert>
     </div>
     
 </template>
@@ -21,7 +32,7 @@ export default {
         TaskComponent
     },
     computed:{
-        ...mapState(['tasks'])
+        ...mapState(['tasks','haveError','text_error'])
     },
     methods:{
         ...mapActions(['getEntryTasks'])

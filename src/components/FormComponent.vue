@@ -69,7 +69,6 @@
                 </v-avatar>
             </v-col>
         </v-row>
-        {{position_form_top}}
     </v-container>
 
 </template>

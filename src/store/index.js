@@ -11,7 +11,9 @@ export default new Vuex.Store({
     contador: 5,
     add_task: false,
     isLoading: false,
-    isSending: false,
+    // isSending: false,
+    haveError:false,
+    text_error:'cacac',
     isTyping: false,
     isEditing:false,
     new_task_description: '',
@@ -56,6 +58,7 @@ export default new Vuex.Store({
       state.add_task = false
       state.new_task_description = ''
       state.task_description_color =[]
+      state.isLoading = false
     },
     update_tasks_with_color(state,classification){
       state.task_description_color = classification
@@ -63,8 +66,14 @@ export default new Vuex.Store({
     save_id_taskToEdit(state,id){
       state.task_selected_edit = id
       state.isEditing = true
+    },
+    change_state_loading(state){
+      state.isLoading = !(state.isLoading)
+    },
+    set_error_message(state,error){
+      state.text_error = error
+      state.haveError = true
     }
-    
   },
 
   actions: {
@@ -74,8 +83,8 @@ export default new Vuex.Store({
           context.commit('addTask', data)
           
       }catch(error){
-          console.log( error)
-          alert("Can not connect to RestApi")
+          // console.log( error)
+          context.commit('set_error_message','Can\'t connect with RestApi. Recharge the page...')
       }
     },
 
@@ -93,8 +102,8 @@ export default new Vuex.Store({
         })
     },
 
-    async saveTask({dispatch, state,context}){
-      
+    async saveTask({dispatch, state,commit}){
+      commit('change_state_loading')
       const dataToSave = {description : `${state.new_task_description}`}
       await tasksApi.post(`tasks.json`, dataToSave)
               .then(response => {
@@ -105,11 +114,15 @@ export default new Vuex.Store({
               .catch(error => {
                   console.error("There was an error with load of the task!!!" ,error)
               })
+      
+      commit('change_state_loading')
     },
     
     async check_new_task_description({state,commit,dispatch}){
+
       (state.new_task_description === '')?(
         commit('cancel_add_task')
+
       ):(
         dispatch('saveTask')
       )
