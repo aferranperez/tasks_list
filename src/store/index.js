@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import tasksApi from '@/api/tasksApi'
+import { stat } from 'fs'
 
 
 Vue.use(Vuex)
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     isTyping: false,
     new_task_description: '',
     tasks: [],
+    task_description_color:[],
 
     // Expresiones regulares
     reg_exp_email: /\w+@\w+\.+[a-z]/,
@@ -41,10 +43,18 @@ export default new Vuex.Store({
     changeTaskDescription(state,description){
       state.new_task_description = description
     },
+
     change_add_task(state){
       state.add_task = true
+    },
+    cancel_add_task(state){
+      state.add_task = false
+      state.new_task_description = ''
+    },
+    update_tasks_with_color(state,classification){
+      state.task_description_color = classification
     }
-
+    
   },
 
   actions: {
@@ -69,6 +79,7 @@ export default new Vuex.Store({
           })
 
           state.new_task_description = ''
+          state.task_description_color= []
         })
     },
 
@@ -84,8 +95,7 @@ export default new Vuex.Store({
               .catch(error => {
                   console.error("There was an error with load of the task!!!" ,error)
               })
-    }
-
+    },
 
 
   },

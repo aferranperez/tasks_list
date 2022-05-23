@@ -88,7 +88,6 @@ export default {
         
         sub_strings.forEach(element => {
             this.order.push([element,this.classifier(element)])
-            console.log(this.order)
         });
     },
 }

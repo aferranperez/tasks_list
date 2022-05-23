@@ -48,7 +48,11 @@
                 md="2"
                 xs="4"     
             >
-                <v-btn>Cancel</v-btn>
+                <v-btn
+                    @click="cancelTask"
+                >
+                    Cancel
+                </v-btn>
                 <v-btn 
                     color="primary"
                     @click="saveTask"
@@ -85,8 +89,12 @@ export default {
     },
     methods:{
         ...mapActions(['saveTask']),
+        
+        cancelTask(){
+            this.$store.commit('cancel_add_task')
+        }
     },
-    
+
 
 }
 </script>
