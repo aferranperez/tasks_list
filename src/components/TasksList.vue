@@ -6,7 +6,7 @@
             :key="index"
             :task="item"
         ></TaskComponent>
-    
+        
         <v-alert
             border="left"
             dismissible
