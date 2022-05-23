@@ -18,7 +18,7 @@
                         >
                         mdi-arrow-expand
                     </v-icon>
-                    Open
+                    <span v-if="$mq == 'lg'">Open</span>
                 </v-btn>
             </v-col>
 
@@ -39,7 +39,7 @@
                         >
                         {{item[0]}}
                     </v-icon>
-                    {{item[1]}}
+                    <span v-if="$mq == 'lg'">{{item[1]}}</span>
                 </v-btn>
                 
             </v-col>
@@ -51,6 +51,7 @@
             >
                 <v-btn
                     @click="cancelTask"
+                    v-if="$mq == 'lg'"
                 >
                     Cancel
                 </v-btn>
@@ -58,7 +59,19 @@
                     color="primary"
                     @click="check_new_task_description"
                 >
-                    {{change_text_buttom}}
+                    <span v-if="$mq == 'lg'">{{change_text_buttom}}</span>
+                    <v-icon
+                        color="black"
+                        v-if="!isTyping && $mq == 'md' "
+                        >
+                        mdi-close
+                    </v-icon>
+                    <v-icon
+                        color="black"
+                        v-if="isTyping && $mq == 'md' "
+                        >
+                        mdi-plus
+                    </v-icon>
                 </v-btn>
             </v-col>
             

@@ -6,7 +6,7 @@
             :key="item"
             :task="item"
         ></TaskComponent>
-        
+
     </div>
     
 </template>
