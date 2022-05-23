@@ -57,7 +57,7 @@
                     color="primary"
                     @click="saveTask"
                 >
-                    Ok
+                    {{change_text_buttom}}
                 </v-btn>
             </v-col>
             
@@ -85,7 +85,12 @@ export default {
         }
     },
     computed: {
-        ...mapState(['new_task_description', 'add_task'])
+        ...mapState(['new_task_description', 'add_task','isTyping']),
+        change_text_buttom:{
+            get(){
+                return (this.isTyping)?'Add':'Ok'
+            }
+        }
     },
     methods:{
         ...mapActions(['saveTask']),

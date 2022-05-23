@@ -35,9 +35,7 @@
                 
             </v-col>
         </v-row>
-
-        {{task}}
-
+        <!-- {{task}} -->
     </v-container>
 
 </template>
@@ -92,7 +90,3 @@ export default {
     },
 }
 </script>
-
-<style>
-
-</style>

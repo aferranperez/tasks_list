@@ -42,6 +42,9 @@ export default new Vuex.Store({
 
     changeTaskDescription(state,description){
       state.new_task_description = description
+
+      if(description != '')state.isTyping = true
+      else state.isTyping = false
     },
 
     change_add_task(state){

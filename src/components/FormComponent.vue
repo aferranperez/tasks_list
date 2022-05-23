@@ -58,6 +58,7 @@
                     v-if="add_task != false"
                     >
                     <img
+                        :style="change_opacity_to_avatar"
                         src="https://cdn.vuetifyjs.com/images/john.jpg"
                         alt="John"
                     >
@@ -78,7 +79,7 @@ export default {
     }),
     
     computed: {
-        ...mapState(['new_task_description','add_task','reg_exp_email','reg_exp_url','reg_exp_hashtag','reg_exp_at','task_description_color']),
+        ...mapState(['new_task_description','add_task','reg_exp_email','reg_exp_url','reg_exp_hashtag','reg_exp_at','task_description_color','isTyping']),
         changeTaskDescription: {
             get(){
                 return this.new_task_description
@@ -88,6 +89,11 @@ export default {
                 this.classifyByColor()
             }
         },
+        change_opacity_to_avatar:{
+            get(){
+                return (this.isTyping)?"opacity:1":'opacity:0.5'
+            }
+        }
     },
 
     methods: {
