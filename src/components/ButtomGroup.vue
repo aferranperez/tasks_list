@@ -28,7 +28,7 @@
                 sm="8"
                 md="10"
                 lg="8"
-                cols="8"
+                cols="7"
             >
                 <v-btn
                     v-for="(item) in icons_buttons"
@@ -52,7 +52,7 @@
                 sm="2"
                 md="1"
                 lg="2"
-                cols="2"    
+                cols="3"    
             >
                 <v-btn
                     @click="cancelTask"
@@ -63,6 +63,7 @@
                 <v-btn 
                     color="primary"
                     @click="check_new_task_description"
+                    :loading = isLoading
                 >
                     <span v-if="$mq == 'lg'">{{change_text_buttom}}</span>
                     <v-icon
@@ -109,7 +110,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['new_task_description', 'add_task','isTyping','isEditing']),
+        ...mapState(['new_task_description', 'add_task','isTyping','isEditing','isLoading']),
         change_text_buttom:{
             get(){
                 return  (this.isTyping && !this.isEditing)?'Add':

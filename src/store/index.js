@@ -73,6 +73,9 @@ export default new Vuex.Store({
       state.isEditing = false
       state.isTyping = false
     },
+    change_loading_state(state){
+      state.isLoading = !state.isLoading
+    }
   },
 
   actions: {
@@ -134,18 +137,21 @@ export default new Vuex.Store({
     },
     
     async check_new_task_description({state,commit,dispatch}){
+      
+      
 
       ( state.new_task_description === '' && state.isEditing != true )?(
         commit('cancel_add_task')
       ):(state.new_task_description != '' && state.isEditing != true )?(
+        commit('change_loading_state'),
         dispatch('saveTask')
       ):(
+        commit('change_loading_state'),
         dispatch('updateTask')
       )
       
-      
-      
-      
+      commit('change_loading_state')
+      console.log('terminado')
     }
 
 

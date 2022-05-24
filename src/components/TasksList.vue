@@ -1,12 +1,24 @@
 <template>
     <div>
-        
-        <TaskComponent
-            v-for="item in tasks"
-            :key="item"
-            :task="item"
-        ></TaskComponent>
-
+        <div
+            v-if="!isLoading"
+        >
+            <TaskComponent
+                v-for="item in tasks"
+                :key="item"
+                :task="item"
+            >
+            </TaskComponent>
+        </div>
+        <div
+            v-else
+        >
+            <v-progress-linear
+            indeterminate
+            color="cyan"
+            >
+            </v-progress-linear>
+        </div>
     </div>
     
 </template>
@@ -21,7 +33,7 @@ export default {
         TaskComponent
     },
     computed:{
-        ...mapState(['tasks'])
+        ...mapState(['tasks','isLoading'])
     },
     methods:{
         ...mapActions(['getEntryTasks'])
