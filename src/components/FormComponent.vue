@@ -27,16 +27,16 @@
                 md="10"
             >
                 <v-input 
-                    style="top: 40px;position: absolute; margin-top: 8px;"
+                    style="top: 40px;position: absolute; margin-top: 8px;z-index: 2; padding:0px 8px 0px 8px;"
                     v-if="add_task != false"
                 >
                     <span
                         v-for="item in task_description_color"
                         :key="item"
+                        :style="setPositionLeft"
                         v-html="item"
                     >
                     </span>
-                    <span>|</span>
                     
                 </v-input>
                 <v-text-field
@@ -44,7 +44,8 @@
                     placeholder="Type a new task"
                     v-model="changeTaskDescription"
                     v-if="add_task != false"
-                    style="opacity:0;"
+                    style="opacity:1;z-index: 1;"
+                    id="formulario"
                 >
                 </v-text-field>
             </v-col>
@@ -76,6 +77,11 @@ import { mapActions, mapState } from 'vuex'
 export default {
     data: () => ({
         // task_with_color: []
+        windowWidth: window.innerWidth,
+        position_form_left:'',
+        position_form_right:'',
+        position_form_top:'',
+        position_form_bottom:'',
     }),
     
     computed: {
@@ -92,6 +98,11 @@ export default {
         change_opacity_to_avatar:{
             get(){
                 return (this.isTyping)?"opacity:1":'opacity:0.5'
+            }
+        },
+        setPositionLeft:{
+            get(){
+                return `left:${this.position_form};right:${this.position_form_right};top:${this.position_form_top};bottom:${this.position_form_bottom}`
             }
         }
     },
@@ -124,6 +135,21 @@ export default {
             this.$store.commit('update_tasks_with_color',classification)
             // this.task_with_color = classification
             // console.log(this.task_with_color)
+        }
+    },
+
+    watch:{
+        windowWidth(newState, oldState){
+            this.position_form_left = document.getElementById('formulario').getBoundingClientRect().left
+            this.position_form_right = document.getElementById('formulario').getBoundingClientRect().right
+            this.position_form_top = document.getElementById('formulario').getBoundingClientRect().top
+            this.position_form_bottom = document.getElementById('formulario').getBoundingClientRect().bottom
+        }
+    },
+
+    mounted() {
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
         }
     },
 }
