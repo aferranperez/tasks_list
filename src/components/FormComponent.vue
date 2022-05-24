@@ -5,9 +5,10 @@
         flat
         >
         <v-row no-gutters>
-            <v-col
-                sm="1"
+            <v-col 
+                sm="2"
                 md="1"
+                cols="2"
             >
                 <v-btn
                     text
@@ -22,9 +23,11 @@
                 </v-icon>
                 </v-btn>  
             </v-col> 
+
             <v-col
-                sm="10"
+                sm="9"
                 md="10"
+                cols="9"
             >
                 <v-input 
                     style="top: 40px;position: absolute; margin-top: 8px;z-index: 2; padding:0px 8px 0px 8px;"
@@ -49,15 +52,17 @@
                 >
                 </v-text-field>
             </v-col>
+
             <v-col
                 sm="1"
                 md="1"
+                cols="1"
             >
                 <v-avatar
                     class="pa-2"
                     size="40px"
                     v-if="add_task != false"
-                    >
+                >
                     <img
                         :style="change_opacity_to_avatar"
                         src="https://cdn.vuetifyjs.com/images/john.jpg"

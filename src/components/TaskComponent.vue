@@ -4,7 +4,10 @@
         <v-row
         >
             <v-col
+                sm="1"
                 md="1"
+                lg="1"
+                cols="1"
             >
                 <v-checkbox
                     :disabled="setStateCheckbox"
@@ -12,7 +15,10 @@
                 ></v-checkbox>
             </v-col>
             <v-col
+                sm="11"
                 md="11"
+                lg="11"
+                cols="11"
                 class="d-flex"
             >
                 <div :class="`align-self-center`">
@@ -35,7 +41,6 @@
                 
             </v-col>
         </v-row>
-        {{task.description}}
     </v-container>
 
 </template>

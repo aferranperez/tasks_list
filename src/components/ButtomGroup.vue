@@ -7,8 +7,10 @@
             class="mb-12"
         >
             <v-col
-                md="2"
-                xs="2"
+                sm="2"
+                md="1"
+                lg="2"
+                cols="2"
             >
                 <v-btn
                     :disabled="(isTyping)?false:true"
@@ -22,10 +24,11 @@
                 </v-btn>
             </v-col>
 
-    
             <v-col
-                md="8"
-                xs="6"
+                sm="8"
+                md="10"
+                lg="8"
+                cols="8"
             >
                 <v-btn
                     v-for="(item) in icons_buttons"
@@ -46,8 +49,10 @@
             
 
             <v-col
-                md="2"
-                xs="4"     
+                sm="2"
+                md="1"
+                lg="2"
+                cols="2"    
             >
                 <v-btn
                     @click="cancelTask"
@@ -68,7 +73,7 @@
                     </v-icon>
                     <v-icon
                         color="black"
-                        v-else-if="isTyping && $mq == 'md' "
+                        v-else-if="isTyping && !isEditing && $mq == 'md' "
                         >
                         mdi-plus
                     </v-icon>
