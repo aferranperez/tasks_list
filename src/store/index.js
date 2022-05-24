@@ -60,9 +60,18 @@ export default new Vuex.Store({
     update_tasks_with_color(state,classification){
       state.task_description_color = classification
     },
-    save_id_taskToEdit(state,id){
+    save_id_taskToEdit(state,[id,description]){
       state.task_selected_edit = id
+      state.new_task_description = description
       state.isEditing = true
+      
+    },
+    reset_id_taskToEdit(state){
+      state.task_description_color = [],
+      state.task_selected_edit = ''
+      state.new_task_description = ''
+      state.isEditing = false
+      state.isTyping = false
     }
     
   },

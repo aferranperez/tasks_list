@@ -62,15 +62,21 @@
                     <span v-if="$mq == 'lg'">{{change_text_buttom}}</span>
                     <v-icon
                         color="black"
-                        v-if="!isTyping && $mq == 'md' "
+                        v-if="!isTyping && $mq == 'md' && !isEditing"
                         >
                         mdi-close
                     </v-icon>
                     <v-icon
                         color="black"
-                        v-if="isTyping && $mq == 'md' "
+                        v-else-if="isTyping && $mq == 'md' "
                         >
                         mdi-plus
+                    </v-icon>
+                    <v-icon
+                        color="black"
+                        v-else-if="isEditing && $mq == 'md' "
+                        >
+                        mdi-floppy
                     </v-icon>
                 </v-btn>
             </v-col>
@@ -98,10 +104,12 @@ export default {
         }
     },
     computed: {
-        ...mapState(['new_task_description', 'add_task','isTyping']),
+        ...mapState(['new_task_description', 'add_task','isTyping','isEditing']),
         change_text_buttom:{
             get(){
-                return (this.isTyping)?'Add':'Ok'
+                return  (this.isTyping && !this.isEditing)?'Add':
+                            (!this.isTyping && !this.isEditing)?'Ok':
+                                'Save'
             }
         }
     },

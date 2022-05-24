@@ -7,6 +7,7 @@
                 md="1"
             >
                 <v-checkbox
+                    :disabled="setStateCheckbox"
                     v-model="checkbox"
                 ></v-checkbox>
             </v-col>
@@ -34,7 +35,7 @@
                 
             </v-col>
         </v-row>
-        {{task}}
+        {{task.description}}
     </v-container>
 
 </template>
@@ -54,6 +55,14 @@ export default {
     props:['task'],
     computed:{
         ...mapState(['reg_exp_email','reg_exp_url','reg_exp_hashtag','reg_exp_at','task_selected_edit']),
+
+        setStateCheckbox:{
+            get(){
+                return  (this.task_selected_edit == '')?false:
+                            (this.task_selected_edit == this.task.id)?false:true
+
+            }
+        }
     },
     methods:{
         classifier(description){
@@ -89,7 +98,8 @@ export default {
     },
     watch:{
         checkbox(newState, oldState){
-            if(newState) this.$store.commit('save_id_taskToEdit',this.task.id)
+            if(newState) this.$store.commit('save_id_taskToEdit', [this.task.id,this.task.description])
+            else this.$store.commit('reset_id_taskToEdit')
         }
     }
 }
