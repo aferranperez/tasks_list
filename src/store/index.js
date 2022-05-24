@@ -72,8 +72,7 @@ export default new Vuex.Store({
       state.new_task_description = ''
       state.isEditing = false
       state.isTyping = false
-    }
-    
+    },
   },
 
   actions: {
@@ -115,13 +114,38 @@ export default new Vuex.Store({
                   console.error("There was an error with load of the task!!!" ,error)
               })
     },
+
+    async updateTask({dispatch, state, commit}){
+      const dataToSave = {description : `${state.new_task_description}`}
+      await tasksApi.put(`/tasks/${state.task_selected_edit}.json`, dataToSave)
+        .then(response => {
+          dispatch('getEntryTasks')
+          commit('reset_id_taskToEdit')
+          console.log(response)
+        })
+        .catch(error => {
+          console.error("There was an error with update task!!!" ,error)
+        })
+      
+      
+      
+
+
+    },
     
     async check_new_task_description({state,commit,dispatch}){
-      (state.new_task_description === '')?(
+
+      ( state.new_task_description === '' && state.isEditing != true )?(
         commit('cancel_add_task')
-      ):(
+      ):(state.new_task_description != '' && state.isEditing != true )?(
         dispatch('saveTask')
+      ):(
+        dispatch('updateTask')
       )
+      
+      
+      
+      
     }
 
 
