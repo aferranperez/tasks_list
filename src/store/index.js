@@ -1,14 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import tasksApi from '@/api/tasksApi'
-import { stat } from 'fs'
-
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    contador: 5,
+    //Variables de estados
     add_task: false,
     isLoading: false,
     isSending: false,
@@ -33,6 +31,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
+
     addTask(state, data){
       for (let id of Object.keys(data)) {
         state.tasks.unshift({
@@ -52,20 +51,24 @@ export default new Vuex.Store({
     change_add_task(state){
       state.add_task = true
     },
+
     cancel_add_task(state){
       state.add_task = false
       state.new_task_description = ''
       state.task_description_color =[]
     },
+
     update_tasks_with_color(state,classification){
       state.task_description_color = classification
     },
+
     save_id_taskToEdit(state,[id,description]){
       state.task_selected_edit = id
       state.new_task_description = description
       state.isEditing = true
       
     },
+
     reset_id_taskToEdit(state){
       state.task_description_color = [],
       state.task_selected_edit = ''
@@ -73,12 +76,15 @@ export default new Vuex.Store({
       state.isEditing = false
       state.isTyping = false
     },
+
     change_loading_state(state){
       state.isLoading = !state.isLoading
     }
+
   },
 
   actions: {
+
     async getEntryTasks(context) {
       try{
           const { data } = await tasksApi.get('/tasks.json')
@@ -104,8 +110,7 @@ export default new Vuex.Store({
         })
     },
 
-    async saveTask({dispatch, state,context}){
-      
+    async saveTask({dispatch, state}){
       const dataToSave = {description : `${state.new_task_description}`}
       await tasksApi.post(`tasks.json`, dataToSave)
               .then(response => {
@@ -129,32 +134,17 @@ export default new Vuex.Store({
         .catch(error => {
           console.error("There was an error with update task!!!" ,error)
         })
-      
-      
-      
-
-
     },
     
     async check_new_task_description({state,commit,dispatch}){
       
-      
-
       ( state.new_task_description === '' && state.isEditing != true )?(
         commit('cancel_add_task')
       ):(state.new_task_description != '' && state.isEditing != true )?(
-        commit('change_loading_state'),
         dispatch('saveTask')
       ):(
-        commit('change_loading_state'),
         dispatch('updateTask')
       )
-      
-      commit('change_loading_state')
-      console.log('terminado')
     }
-
-
   },
-
 })

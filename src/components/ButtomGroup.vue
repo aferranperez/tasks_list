@@ -126,11 +126,6 @@ export default {
             this.$store.commit('cancel_add_task')
         }
     },
-
-
 }
 </script>
 
-<style>
-
-</style>

@@ -1,5 +1,4 @@
 <template>
-
     <v-container>
         <v-row
         >
@@ -36,9 +35,7 @@
                         <v-icon v-else-if="item[1] == 'at' ">mdi-at</v-icon>
                         {{editBubbleText( item ) }}
                     </v-chip>
-
                 </div>
-                
             </v-col>
         </v-row>
     </v-container>
@@ -52,8 +49,7 @@ export default {
     data() {
         return {
             checkbox: false,
-            // order: [contenido , type]
-            order:[],
+            order:[], // order: [contenido , type]
             color:''
         }
     },

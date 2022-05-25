@@ -71,13 +71,11 @@
                 </v-avatar>
             </v-col>
         </v-row>
-    
     </v-container>
-
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
     data: () => ({
@@ -138,8 +136,6 @@ export default {
             });
 
             this.$store.commit('update_tasks_with_color',classification)
-            // this.task_with_color = classification
-            // console.log(this.task_with_color)
         }
     },
 
@@ -159,7 +155,3 @@ export default {
     },
 }
 </script>
-
-<style>
-
-</style>
