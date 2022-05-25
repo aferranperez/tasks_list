@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import tasksApi from '@/api/tasksApi'
+import { stat } from 'fs'
 
 Vue.use(Vuex)
 
@@ -33,6 +34,7 @@ export default new Vuex.Store({
   mutations: {
 
     addTask(state, data){
+      state.tasks = []
       for (let id of Object.keys(data)) {
         state.tasks.unshift({
             id,
@@ -129,7 +131,6 @@ export default new Vuex.Store({
         .then(response => {
           dispatch('getEntryTasks')
           commit('reset_id_taskToEdit')
-          console.log(response)
         })
         .catch(error => {
           console.error("There was an error with update task!!!" ,error)
